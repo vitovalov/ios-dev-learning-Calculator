@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private var brain = CaclculatorBrain()
+    private var brain = CalculatorBrain()
     
     @IBAction func performOperation(_ sender: UIButton) {
         if userIsInTheMiddleOfTyping {
