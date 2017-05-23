@@ -15,6 +15,14 @@ func changeSign(operand: Double) -> Double {
 
 struct CalculatorBrain {
     
+    /// mutating because we're changing the operations table
+    // escaping means this function is escaping the curly braces: it's jumping to operations table code. It escapes the curly braces region to another part of external code
+    mutating func addUnaryOperation(named symbol: String, _ operation: @escaping (Double) -> Double) {
+        operations[symbol] = Operation.unaryOperation(operation)
+    }
+    
+    
+    
     private enum Operation {
         case constant(Double) // associated value
         case unaryOperation((Double) -> Double)
@@ -29,15 +37,15 @@ struct CalculatorBrain {
         "e": Operation.constant(M_E),
         "√": Operation.unaryOperation(sqrt), // sqrt,
         "cos": Operation.unaryOperation(cos), // cos
-//        "~": Operation.unaryOperation(changeSign),
-//        "x": Operation.binaryOperation(multiply),
-//        "/": Operation.binaryOperation(devide),
-//        "+": Operation.binaryOperation(multiply),
-//        "-": Operation.binaryOperation(multiply),
+        //        "~": Operation.unaryOperation(changeSign),
+        //        "x": Operation.binaryOperation(multiply),
+        //        "/": Operation.binaryOperation(devide),
+        //        "+": Operation.binaryOperation(multiply),
+        //        "-": Operation.binaryOperation(multiply),
         
-//        "x": Operation.binaryOperation({ (op1, op2) in op1 * op2} ),
+        //        "x": Operation.binaryOperation({ (op1, op2) in op1 * op2} ),
         
-        // CLOSURES: 
+        // CLOSURES:
         "x": Operation.binaryOperation({ $0 * $1 }),
         
         "/": Operation.binaryOperation({ $0 / $1 }),
@@ -45,7 +53,7 @@ struct CalculatorBrain {
         "-": Operation.binaryOperation({ $0 - $1 }),
         
         "~": Operation.unaryOperation({ -$0 }),
-
+        
         
         "=": Operation.equals
     ]
